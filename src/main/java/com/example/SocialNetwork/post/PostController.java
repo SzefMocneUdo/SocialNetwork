@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/post")
 public class PostController {
@@ -32,6 +33,16 @@ public class PostController {
     public Post updatePost(@PathVariable Integer id, @RequestBody Post post) {
 
         return postService.updatePost(id, post);
+    }
+
+    @PutMapping("/{id}/like")
+    public Post likePost(@PathVariable Integer id) {
+        return postService.likePost(id);
+    }
+
+    @PutMapping("/{id}/dislike")
+    public Post dislikePost(@PathVariable Integer id) {
+        return postService.dislikePost(id);
     }
 
     @DeleteMapping("/{id}")

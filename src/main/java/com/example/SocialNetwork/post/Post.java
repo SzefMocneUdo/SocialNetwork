@@ -21,6 +21,6 @@ public class Post {
     private String title;
     private String value;
     private String ownerEmail;
-    private Integer likes;
-    private Integer dislikes;
+    private int likes;
+    private int dislikes;
 }

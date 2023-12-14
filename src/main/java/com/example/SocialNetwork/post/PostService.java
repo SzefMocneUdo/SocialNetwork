@@ -34,6 +34,30 @@ public class PostService {
             Post post = existingPost.get();
             post.setTitle(updatedPost.getTitle());
             post.setValue(updatedPost.getValue());
+            post.setLikes(updatedPost.getLikes());
+            post.setDislikes(updatedPost.getDislikes());
+            return postRepository.save(post);
+        } else {
+            return null;
+        }
+    }
+
+    public Post likePost(Integer id) {
+        Optional<Post> existingPost = postRepository.findById(id);
+        if (existingPost.isPresent()) {
+            Post post = existingPost.get();
+            post.setLikes(post.getLikes() + 1);
+            return postRepository.save(post);
+        } else {
+            return null;
+        }
+    }
+
+    public Post dislikePost(Integer id) {
+        Optional<Post> existingPost = postRepository.findById(id);
+        if (existingPost.isPresent()) {
+            Post post = existingPost.get();
+            post.setDislikes(post.getDislikes() + 1);
             return postRepository.save(post);
         } else {
             return null;
