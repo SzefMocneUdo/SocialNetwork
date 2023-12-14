@@ -1,6 +1,5 @@
 package com.example.SocialNetwork.post;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,8 @@ public class PostService {
     }
 
     public Post getPostById(Integer id){
-        return postRepository.findById(id).orElse(null);
+        return postRepository.findById(id)
+                .orElseThrow(() -> new PostNotFoundException("Post not found with id: " + id));
     }
 
     public List<Post> getAllPosts() {
@@ -38,7 +38,7 @@ public class PostService {
             post.setDislikes(updatedPost.getDislikes());
             return postRepository.save(post);
         } else {
-            return null;
+            throw new PostNotFoundException("Post not found with id: " + id);
         }
     }
 
@@ -49,7 +49,7 @@ public class PostService {
             post.setLikes(post.getLikes() + 1);
             return postRepository.save(post);
         } else {
-            return null;
+            throw new PostNotFoundException("Post not found with id: " + id);
         }
     }
 
@@ -60,7 +60,7 @@ public class PostService {
             post.setDislikes(post.getDislikes() + 1);
             return postRepository.save(post);
         } else {
-            return null;
+            throw new PostNotFoundException("Post not found with id: " + id);
         }
     }
 
