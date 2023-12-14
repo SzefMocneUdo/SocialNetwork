@@ -2,6 +2,7 @@ package com.example.SocialNetwork.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +30,12 @@ public class UserController {
         String loggedInUserEmail = authentication.getName();
         User loggedInUser = userService.getUserByEmail(loggedInUserEmail);
         return ResponseEntity.ok(loggedInUser);
+    }
+
+    @DeleteMapping("{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public void deleteUser(@PathVariable Integer id){
+        userService.deleteUser(id);
     }
 
 }
